@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		#allButtons{
+			margin-top: 20px;
+			margin-bottom: 20px;
+			padding: 5px;
+			display: block;
+		}
+		#box{
+			height: 70px;
+			width: 70px;
+			border: 7px solid black;
+			background-color: yellow;
+			margin-left: 20px;
+		}
+		.boxProperty{
+			border: 2px;
+			display: inline-block;
+			margin-top: 30px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Micro Assignment 5</h1>
+	<div id = "allButtons">
+		<button id ="random_boxes">Add box to page in 1 second</button>
+		<button id ="left">Spin Left</button>
+		<button id ="right">Spin Right</button>
+		<button id ="stop">Stop</button>
+	</div>
+	<div id ="box"></div>
+
+
+	<script>
+		var random_boxes = document.getElementById("random_boxes");
+		var left = document.getElementById("left")
+		var right = document.getElementById("right")
+		var stop = document.getElementById("stop")
+		var box = document.getElementById("box");
+		var curr_angle = 45;
+		var left_spin; 
+		var right_spin;
+
+		function createBox (){
+			let div = document.createElement("div");
+			div.style.height = Math.floor((Math.random() * (150 - 10 + 1)) + 10)+"px";
+			div.style.width = Math.floor((Math.random() * (150 - 10 + 1)) + 10)+"px";
+			div.style.backgroundColor = "#"+Math.floor(Math.random()*16777215).toString(16);
+			div.classList.add("boxProperty");
+			document.querySelector("body").appendChild(div);
+		}
+
+			random_boxes.addEventListener("click",function(){
+				setTimeout(createBox(),1000);
+			});
+
+
+			left.addEventListener("click",function(){
+				clearInterval(left_spin);
+				clearInterval(right_spin);
+				left_spin = setInterval(function(){
+					box.style.transform = "rotate("+ --curr_angle + "deg)";},10);
+			})
+				
+			
+
+			right.addEventListener("click",function(){
+				clearInterval(left_spin);
+				clearInterval(right_spin);
+				right_spin = setInterval(function(){
+					box.style.transform = "rotate("+ ++curr_angle +"deg)";},10);
+
+			})
+
+			stop.addEventListener("click",function(){
+				clearInterval(left_spin);
+				clearInterval(right_spin);
+			})
+
+		
+	</script>
+
+
+
+</body>
+</html>
